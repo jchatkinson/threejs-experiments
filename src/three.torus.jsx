@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { OrbitControls, TorusKnot } from '@react-three/drei'
 import { Canvas, useFrame } from '@react-three/fiber'
 
-export default function ThreeTest() {
+export default function ThreeTorus() {
   return (
     <Canvas className='h-screen'>
       <color attach="background" args={['black']} />

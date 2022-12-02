@@ -9,12 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/cannon": "^6.5.0",
     "@react-three/drei": "^9.40.0",
     "@react-three/fiber": "^8.9.1",
+    "leva": "^0.9.34",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.3",
-    "three": "^0.146.0"
+    "three": "^0.146.0",
+    "valtio": "^1.7.6"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
