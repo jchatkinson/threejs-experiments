@@ -3,12 +3,10 @@ import { createContext, useMemo, useRef, useState, useContext, useLayoutEffect, 
 import { useFrame, useThree, Canvas } from '@react-three/fiber'
 import { QuadraticBezierLine, Text } from '@react-three/drei'
 import { useDrag } from '@use-gesture/react'
-import { HomeLink } from './shared.components'
 
 export default function ThreeBezierCurvesNodes() {
   const [[a, b, c, d, e]] = useState(() => [...Array(5)].map(createRef))
-  return (<>
-    <HomeLink className='text-white'/>
+  return (
     <Canvas orthographic camera={{ zoom: 80 }}>
       <color attach="background" args={['purple']} />
       <Nodes>
@@ -19,7 +17,7 @@ export default function ThreeBezierCurvesNodes() {
         <Node ref={e} name="e" color="#204090" position={[-0.5, -1, 0]} />
       </Nodes>
     </Canvas>
-  </>)
+  )
 }
 
 const context = createContext()
