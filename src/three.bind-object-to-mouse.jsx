@@ -1,13 +1,17 @@
 import { useRef } from 'react'
 import { OrbitControls } from '@react-three/drei'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { HomeLink } from './shared.components';
 
 export default function ThreeBindObjectToMouse() {
   return (
+    <>
+    <HomeLink />
     <Canvas className='h-screen' camera={{position:[0,0,50]}}>
       <color attach="background" args={['white']} />
       <MouseBoundObject />
     </Canvas>
+    </>
   )
 }
 

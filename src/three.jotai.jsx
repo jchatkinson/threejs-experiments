@@ -13,12 +13,17 @@ export default function ThreeJotai() {
     setBoxes((prev) => [...prev, newbox]);
   }
 
+  const addBoxAtMouse = () => {
+    const newbox = atom({ position: [10 * Math.random() - 5, 10 * Math.random() - 5, 0], hovered: false })
+    setBoxes((prev) => [...prev, newbox]);
+  }
+
   return (
     <div>
       <button onClick={addBox} className="z-50 absolute inset-y-1/2 inset-x-1/2 h-12 w-24 btn -translate-x-12 -translate-y-6" >Add Box</button>
       <div className='h-screen flex flex-col'>
         <div className='flex-auto'>
-          <Canvas>
+          <Canvas onPointerMissed={e => console.log(e)}>
             <color attach="background" args={['lightgrey']} />
             <ambientLight intensity={0.8} />
             <pointLight position={[100, 100, 100]} intensity={0.7} />
@@ -34,7 +39,7 @@ export default function ThreeJotai() {
           </Canvas>
         </div>
       </div>
-
+    
     </div>
 
   )

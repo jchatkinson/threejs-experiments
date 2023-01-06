@@ -20,7 +20,7 @@ export default function ThreeSnapToGrid() {
       <Obj setIsDragging={setIsDragging} floorPlane={floorPlane} initPos={[5,0,3]} />
       <Obj setIsDragging={setIsDragging} floorPlane={floorPlane} initPos={[-2,0,-5]} />
 
-
+      <Pointer floorPlane={floorPlane} />
       <OrthographicCamera makeDefault zoom={50} position={[0, 40, 0]} />
 
       <OrbitControls minZoom={10} maxZoom={50} enabled={!isDragging} />
