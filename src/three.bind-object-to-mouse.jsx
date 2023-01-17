@@ -4,6 +4,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { HomeLink } from './shared.components';
 import { useState } from 'react';
 
+//ref https://codesandbox.io/s/r3f-mouse-8d3ho?file=/src/index.js
 export default function ThreeBindObjectToMouse() {
   return (
     <Canvas className='h-screen' camera={{position:[0,0,50]}}>

@@ -5,23 +5,21 @@ import * as THREE from 'three'
 import { useDrag } from "@use-gesture/react";
 import { animated, useSpring } from "@react-spring/three";
 
+
 //from https://codesandbox.io/s/musing-night-wso9v?file=/src/Obj.jsx:49-153
 export default function ThreeSnapToGrid() {
-  const [isDragging, setIsDragging] = useState(false);
   const floorPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+  const [isDragging, setIsDragging] = useState(false);
+
   return (
     <Canvas style={{ background: "white" }} shadows dpr={[1, 2]}>
       <ambientLight intensity={0.5} />
       <directionalLight        intensity={0.5}        castShadow        shadow-mapSize-height={1512}        shadow-mapSize-width={1512}      />
-      {/* <planeHelper args={[floorPlane, 5, "red"]} /> */}
-      <gridHelper args={[100, 100]} />
-
-      <Obj setIsDragging={setIsDragging} floorPlane={floorPlane} initPos={[-5,0,5]} />
-      <Obj setIsDragging={setIsDragging} floorPlane={floorPlane} initPos={[5,0,3]} />
+      <gridHelper args={[100, 100]} />    
+      <Obj setIsDragging={setIsDragging} floorPlane={floorPlane} initPos={[5,0,3]} /> */
+      <Obj setIsDragging={setIsDragging} floorPlane={floorPlane} initPos={[-5,0,3]} />
       <Obj setIsDragging={setIsDragging} floorPlane={floorPlane} initPos={[-2,0,-5]} />
-
       <OrthographicCamera makeDefault zoom={50} position={[0, 40, 0]} />
-
       <OrbitControls minZoom={10} maxZoom={50} enabled={!isDragging} />
     </Canvas>
   )
@@ -41,7 +39,7 @@ function Obj({ setIsDragging, floorPlane, initPos=[0,0,0] }) {
     position: pos,
     scale: 1,
     rotation: [0, 0, 0],
-    config: { friction: 10 }
+    config: { mass:0.5, tension:200, friction: 10 }
   }));
 
   const bind = useDrag(

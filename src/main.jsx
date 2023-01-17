@@ -15,6 +15,8 @@ import ThreeSnapToGrid from './three.snap-to-grid';
 import ThreeJotai from './three.jotai';
 import ThreeBezierCurvesNodes from './three.bezier-curves-nodes';
 import ThreeBindObjectToMouse from './three.bind-object-to-mouse';
+import SvgJotai from './svg.jotai';
+import ThreeAddToGrid from './three.add-to-grid';
 
 // Array of experiments and their properties
 const links = [
@@ -26,9 +28,10 @@ const links = [
   {title: 'Snap to grid', url:'three-snap-to-grid', date:"2022-12-29", desc:"Drag an object around a grid and snap to the grid points", element: <ThreeSnapToGrid/> , status:"Completed"},
   {title: 'Jotai', url:'three-jotai', date:"2022-12-29", desc:"Drag an object around a grid and snap to the grid points", element: <ThreeJotai/> , status:"Completed"},
   {title: 'Bezier Curves and Nodes', url:'three-bezier-curves-and-nodes', date:"2022-12-29", desc:"Drag nodes around with bezier curves between them", element: <ThreeBezierCurvesNodes /> , status:"Completed"},
-  {title: 'Mouse Bound Object', url:'three-mouse-bound-object', date:"2023-01-05", desc:"Bind an object to the cursor position", element:<ThreeBindObjectToMouse/>, status:"Completed"}
-
-] 
+  {title: 'Mouse Bound Object', url:'three-mouse-bound-object', date:"2023-01-05", desc:"Bind an object to the cursor position", element:<ThreeBindObjectToMouse/>, status:"Completed"},
+  {title: 'Advanced Jotai', url:'advanced-jotai', date:"2023-01-05", desc:"Advanced use of Jotai with example SVG drawing app", element:<SvgJotai/>,status:"Completed"},
+  {title: 'Add to grid', url:'three-add-to-grid', date:"2023-01-05", desc:"add items by clicking, and use jotai to manage state", element:<ThreeAddToGrid/>, status:"In Progress"},
+];
 
 const threeRoutes = links.map( l => {
   return {path:l.url, element:l.element, errorElement:<ErrorPage/> }

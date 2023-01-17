@@ -49,7 +49,7 @@ function Boxes({ boxes }) {
   return (
     <>
       {boxes.map((box) => (
-        <Box key={box.key} box={box} />
+        <Box key={box} box={box} />
       ))}
     </>
   )
