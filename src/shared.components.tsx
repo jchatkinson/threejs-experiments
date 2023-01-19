@@ -37,14 +37,13 @@ export const Node2D = ({ storeNode }) => {
   const aspect = size.width / viewport.width;      
   const ref = useRef();
   const [hovered, setHovered] = useState(false);
-  const [dragging, setDragging] = useState(false);
   
   const positionText = `[${node.position[0].toFixed(2)},${node.position[1].toFixed(2)},${node.position[2].toFixed(2)}]`
   const restraintText = `[${node.restraint}]`
   const bind = useDrag(
-    ({active, delta:[x,y]}) => {
-      storeNode.position = [node.position[0]+x/aspect, node.position[1]-y/aspect, node.position[2]];
-      setDragging(active);
+    ({active, delta:[x,z]}) => {
+      storeNode.position = [node.position[0]+x/aspect, node.position[1], node.position[2]-z/aspect];
+      store.options.lockcontrols = active;
     }
   );
 
@@ -52,11 +51,13 @@ export const Node2D = ({ storeNode }) => {
     <group position={node.position} visible={viewOptions.node}>
       <mesh {...bind()} ref={ref}  
         onPointerOver={(e)=>(e.stopPropagation(), setHovered(true))} 
-        onPointerOut={(e)=>setHovered(false)} >
-        <sphereGeometry  attach="geometry" args={[0.5,4]}/>
+        onPointerOut={(e)=>setHovered(false)} 
+        onClick={(e)=>(console.log(node), store.selectedObject = node)}>
+        
+        <sphereGeometry  attach="geometry" args={[0.5,12,12]}/>
         <meshBasicMaterial attach="material" color={handleColor(hovered,node.color)} />
       </mesh>
-      <Html position={[0,-1,1]} center transform>
+      <Html position={[0,0,0]} >
         {viewOptions.uid && <p>{node.uid}</p>}
         {viewOptions.coordinate && <p>{positionText}</p> }
         {viewOptions.restraint && <p>{restraintText}</p>}
@@ -70,7 +71,6 @@ export const Frame2D = ({storeFrame}) => {
   const viewOptions = useSnapshot(store.options.view);
   const ref = useRef();
   const [hovered, setHovered] = useState(false);
-
   const points = [frame.ni.position, frame.nj.position];
 
   return (
@@ -80,6 +80,7 @@ export const Frame2D = ({storeFrame}) => {
       lineWidth={hovered ? 5 : 3}
       onPointerOver={(e)=>(e.stopPropagation(), setHovered(true))}
       onPointerOut={(e)=>setHovered(false)}
+      onClick={(e)=>(console.log(frame), store.selectedObject = frame)}
       visible={viewOptions.frame}
     />
   )

@@ -1,6 +1,5 @@
 //global state shared atoms using Jotai
-import { atom } from "jotai";
-import { proxy, useSnapshot } from 'valtio';
+import { proxy } from 'valtio';
 import { derive } from 'valtio/utils'
 
 //a simple uid = suid
@@ -26,11 +25,13 @@ export class Obj {
 export class Node extends Obj {
     position:number[]; 
     restraint:number[];
-    
-    constructor({position=[0,0,0], restraint=[0,0,0,0,0,0], uid=suid(), selected=false, visible=true, hovered=false, color="indianred", userData={}}={}) {
+    type:string = 'node';
+    load:number[];
+    constructor({position=[0,0,0], restraint=[0,0,0,0,0,0], load=[], uid=suid(), selected=false, visible=true, hovered=false, color="indianred", userData={}}={}) {
         super({uid, selected, visible, hovered, color, userData});
         this.position = position;
         this.restraint = restraint;
+        this.load = load;
     }
 };
 
@@ -41,6 +42,7 @@ export class Frame extends Obj {
     A:number;
     I:number;
     J:number;
+    type:string = 'frame';
     constructor({ni=new Node(), nj=new Node(), uid=suid(), E=29000, A=1, I=1, J=1, selected=false, visible=true, hovered=false, color="navy", userData={}}={}) {
         super({uid, selected, visible, hovered, color, userData});
         this.ni = ni;
@@ -59,9 +61,12 @@ export class Frame extends Obj {
 };
 
 export const store = proxy({
-    nodes: [new Node(), new Node({position:[10,0,0]}), new Node({position:[10,10,0]})],
+    selectedObject: null,
+    nodes: [new Node(), new Node({position:[10,0,0]}), new Node({position:[10,0,10]})],
     options: {
+        lockcontrols: false,
         view: {
+            grid:true,
             node:true,
             frame:true,
             restraint: false,
@@ -79,35 +84,3 @@ derive({
 }, {
     proxy: store,
 })
-
-
-// const frames = [
-//     new Frame({ni:nodesAtom[0], nj:nodesAtom[1]}),
-//     new Frame({ni:nodesAtom[0], nj:nodesAtom[2]}),
-//     new Frame({ni:nodesAtom[1], nj:nodesAtom[2]})
-// ]new Node(), new Node({position:[10,0,0]}), new Node({position:[10,10,0]})
-
-//create a set of atoms for a simple triangle structure nodes
-// export const nodesAtom = atom<Node[]>([new Node(), new Node({position:[10,0,0]}), new Node({position:[10,10,0]})]);
-
-//create a writeonly atom to add nodes
-// export const addNodeAtom = atom(null, (get,set,update:Node)=>set(nodesAtom, (prev)=>[...prev, update]))
-
-//create a writeonly atom to edit nodes
-// export const editNodeAtom = atom(null, (get,set,editedNode:Node)=>{
-//     const nodes = get(nodesAtom);
-//     const ii = nodes.findIndex(n=>n.uid === editedNode.uid); 
-//     if (ii<0 || editedNode === nodes[ii]) {
-//         //nothing has changed, return.
-//         return
-//     } else {
-//         nodes[ii] = editedNode;
-//         set(nodesAtom,nodes)
-//     }
-// });
-
-//initialize an empty frames atom
-// export const framesAtom = atom<Frame[]>([]);
-
-//create writeonly atom to add frames
-// export const addFrameAtom = atom(null, (get,set,update:Frame)=>set(framesAtom, (prev)=>[...prev, update]));
